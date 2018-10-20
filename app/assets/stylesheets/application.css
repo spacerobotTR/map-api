@@ -305,3 +305,8 @@ visibility: hidden !important;
 top: auto;
 bottom: 60px;
 }
+
+#map {
+  height: 600px;
+
+}

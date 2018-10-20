@@ -49,3 +49,5 @@
 <br>
 
 <%= link_to 'New Incident', new_incident_path %>
+
+<%= tag.div nil, id: 'map', data: { incidents: @incidents.to_json(methods: [:address]) } %>
