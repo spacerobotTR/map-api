@@ -18,7 +18,8 @@ document.addEventListener("turbolinks:load", function() {
         lng: incident.longitude,
         title: incident.address,
         infoWindow: {
-          content: `<p><a href='/incidents/${incident.id}'>${incident.address}</a></p>`
+          content: `<p><a href='/incidents/${incident.id}'>${incident.address}</a></p>
+                    <p><a href='/incidents/${incident.id}'>${incident.drnum}</a></p>`
         }
       });
     }

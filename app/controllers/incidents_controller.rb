@@ -7,6 +7,10 @@ class IncidentsController < ApplicationController
     @incidents = Incident.all
   end
 
+  def map
+    @incidents = Incident.all
+  end
+
   # GET /incidents/1
   # GET /incidents/1.json
   def show
