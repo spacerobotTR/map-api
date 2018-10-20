@@ -1,0 +1,82 @@
+<%= form_with(model: incident, local: true) do |form| %>
+  <% if incident.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(incident.errors.count, "error") %> prohibited this incident from being saved:</h2>
+
+      <ul>
+      <% incident.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :street %>
+    <%= form.text_field :street, id: :incident_street %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_field :city, id: :incident_city %>
+  </div>
+
+  <div class="field">
+    <%= form.label :zip %>
+    <%= form.text_field :zip, id: :incident_zip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dayofweek %>
+    <%= form.number_field :dayofweek, id: :incident_dayofweek %>
+  </div>
+
+  <div class="field">
+    <%= form.label :timeofday %>
+    <%= form.date_select :timeofday, id: :incident_timeofday %>
+  </div>
+
+  <div class="field">
+    <%= form.label :state %>
+    <%= form.text_field :state, id: :incident_state %>
+  </div>
+
+  <div class="field">
+    <%= form.label :incidenttype %>
+    <%= form.text_field :incidenttype, id: :incident_incidenttype %>
+  </div>
+
+  <div class="field">
+    <%= form.label :drnum %>
+    <%= form.text_field :drnum, id: :incident_drnum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :weatherevent %>
+    <%= form.text_field :weatherevent, id: :incident_weatherevent %>
+  </div>
+
+  <div class="field">
+    <%= form.label :specialevent %>
+    <%= form.text_field :specialevent, id: :incident_specialevent %>
+  </div>
+
+  <div class="field">
+    <%= form.label :latitude %>
+    <%= form.text_field :latitude, id: :incident_latitude %>
+  </div>
+
+  <div class="field">
+    <%= form.label :longitude %>
+    <%= form.text_field :longitude, id: :incident_longitude %>
+  </div>
+
+  <div class="field">
+    <%= form.label :comments %>
+    <%= form.text_area :comments, id: :incident_comments %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

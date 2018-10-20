@@ -13,3 +13,6 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+//= stub forms_pickers
+//= stub pages_tickets_list
+//= stub tables_datatables
