@@ -9,6 +9,7 @@
 
   <%= csrf_meta_tags %>
 
+  <meta name="turbolinks-cache-control" content="no-preview">
 
   <title><%= @title ? @title + " - " : "" %>Rails Starter</title>
 
@@ -22,16 +23,21 @@
   <!-- <%= stylesheet_link_tag 'open-iconic.css', media: 'all', 'data-turbolinks-track': 'reload' %> -->
   <!-- <%= stylesheet_link_tag 'pe-icon-7-stroke.css', media: 'all', 'data-turbolinks-track': 'reload' %> -->
 
+
+
   <!-- Core stylesheets -->
-  <%= stylesheet_link_tag 'bootstrap.css', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= stylesheet_link_tag 'appwork.css', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= stylesheet_link_tag 'theme-corporate.css', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= stylesheet_link_tag 'colors.css', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'bootstrap.css', media: 'all', class: 'theme-settings-bootstrap-css' %>
+  <%= stylesheet_link_tag 'appwork.css', media: 'all', class: 'theme-settings-appwork-css' %>
+  <%= stylesheet_link_tag 'theme-corporate.css', media: 'all', class: 'theme-settings-theme-css' %>
+  <%= stylesheet_link_tag 'colors.css', media: 'all', class: 'theme-settings-colors-css' %>
   <%= stylesheet_link_tag 'uikit.css', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
   <!-- Layout helpers -->
   <%= javascript_include_tag 'layout-helpers.js', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'bootstrap-sweetalert/bootstrap-sweetalert.js' %>
+  <!-- Theme settings -->
+  <%= javascript_include_tag 'theme-settings.js', 'data-turbolinks-track': 'reload' %>
 
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -47,12 +53,14 @@
   <%= javascript_include_tag 'bootstrap.js', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'sidenav.js', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag "application", 'data-turbolinks-track': 'reload' %>
+
 
   <%= yield :head %>
 </head>
 <body>
 
   <%= content_for?(:content) ? yield(:content) : yield %>
-
+  <%= yield :scripts %>
 </body>
 </html>
