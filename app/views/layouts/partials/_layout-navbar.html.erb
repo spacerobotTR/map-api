@@ -44,7 +44,20 @@
       <!-- Divider -->
       <div class="nav-item d-none d-lg-block text-big font-weight-light line-height-1 opacity-25 mr-3 ml-1">|</div>
 
+      <div class="demo-navbar-user nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+          <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
+            <!-- <img src="/img/avatars/1.png" alt class="d-block ui-w-30 rounded-circle"> -->
+            <span class="px-1 mr-lg-2 ml-2 ml-lg-0"><% if user_signed_in? %><%= current_user.username %><% end %></span>
+          </span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <%= link_to(destroy_user_session_path, :method => :delete, :class => "dropdown-item")  do %>
+          <i class="ion ion-ios-log-out text-danger"></i> &nbsp; Log Out
+          <% end %>
 
+        </div>
+      </div>
     </div>
   </div>
 </nav>
