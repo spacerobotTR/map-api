@@ -1,82 +1,125 @@
-<%= form_with(model: incident, local: true) do |form| %>
-  <% if incident.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(incident.errors.count, "error") %> prohibited this incident from being saved:</h2>
-
-      <ul>
-      <% incident.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :street %>
-    <%= form.text_field :street, id: :incident_street %>
-  </div>
-
-  <div class="field">
-    <%= form.label :city %>
-    <%= form.text_field :city, id: :incident_city %>
-  </div>
-
-  <div class="field">
-    <%= form.label :zip %>
-    <%= form.text_field :zip, id: :incident_zip %>
-  </div>
-
-  <div class="field">
-    <%= form.label :dayofweek %>
-    <%= form.number_field :dayofweek, id: :incident_dayofweek %>
-  </div>
-
-  <div class="field">
-    <%= form.label :timeofday %>
-    <%= form.date_select :timeofday, id: :incident_timeofday %>
-  </div>
-
-  <div class="field">
-    <%= form.label :state %>
-    <%= form.text_field :state, id: :incident_state %>
-  </div>
-
-  <div class="field">
-    <%= form.label :incidenttype %>
-    <%= form.text_field :incidenttype, id: :incident_incidenttype %>
-  </div>
-
-  <div class="field">
-    <%= form.label :drnum %>
-    <%= form.text_field :drnum, id: :incident_drnum %>
-  </div>
-
-  <div class="field">
-    <%= form.label :weatherevent %>
-    <%= form.text_field :weatherevent, id: :incident_weatherevent %>
-  </div>
-
-  <div class="field">
-    <%= form.label :specialevent %>
-    <%= form.text_field :specialevent, id: :incident_specialevent %>
-  </div>
-
-  <div class="field">
-    <%= form.label :latitude %>
-    <%= form.text_field :latitude, id: :incident_latitude %>
-  </div>
-
-  <div class="field">
-    <%= form.label :longitude %>
-    <%= form.text_field :longitude, id: :incident_longitude %>
-  </div>
-
-  <div class="field">
-    <%= form.label :comments %>
-    <%= form.text_area :comments, id: :incident_comments %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'bootstrap-datepicker/bootstrap-datepicker.css', media: 'all' %>
+  <%= stylesheet_link_tag 'bootstrap-daterangepicker/bootstrap-daterangepicker.css', media: 'all' %>
+  <%= stylesheet_link_tag 'bootstrap-material-datetimepicker/bootstrap-material-datetimepicker.css', media: 'all' %>
+  <%= stylesheet_link_tag 'timepicker/timepicker.css', media: 'all' %>
+  <%= stylesheet_link_tag 'minicolors/minicolors.css', media: 'all' %>
 <% end %>
+
+<% content_for :scripts do %>
+  <!-- Dependencies -->
+  <%= javascript_include_tag 'moment/moment.js' %>
+  <%= javascript_include_tag 'bootstrap-datepicker/bootstrap-datepicker.js' %>
+  <%= javascript_include_tag 'bootstrap-daterangepicker/bootstrap-daterangepicker.js' %>
+  <%= javascript_include_tag 'bootstrap-material-datetimepicker/bootstrap-material-datetimepicker.js' %>
+  <%= javascript_include_tag 'timepicker/timepicker.js' %>
+  <%= javascript_include_tag 'minicolors/minicolors.js' %>
+  <%= javascript_include_tag 'forms_pickers.js' %>
+<% end %>
+
+<h4 class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
+  <div>  <ol class="breadcrumb font-weight-bold m-0">
+      <li class="breadcrumb-item">Home / Incidents / Create Incident</li>
+
+    </ol></div>
+
+
+</h4>
+<div class="card mb-4">
+
+  <div class="card-body">
+    <%= form_with(model: incident, local: true) do |f| %>
+      <% if incident.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(incident.errors.count, "error") %> prohibited this incident from being saved:</h2>
+
+          <ul>
+          <% incident.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+
+          <%= f.label :street, 'Street Address', { :class=>"form-label" } %>
+
+          <%= f.text_field :street, { :class=>"form-control", autofocus: true, required: true, :tabindex => 1 } %>
+
+        </div>
+        <div class="form-group col-md-6">
+          <%= f.label :incidenttype, 'Incident Type', { :class=>"form-label" } %>
+
+          <%= f.text_field :incidenttype, { :class=>"form-control", required: true, :tabindex => 6 } %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <%= f.label :city, 'City', { :class=>"form-label" } %>
+
+          <%= f.text_field :city, { :class=>"form-control",  required: true, :tabindex => 3 } %>
+        </div>
+        <div class="form-group col-md-6">
+          <%= f.label :drnum, 'DR Number', { :class=>"form-label" } %>
+
+          <%= f.text_field :drnum, { :class=>"form-control", required: true, :tabindex => 7 } %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <%= f.label :state, 'State', { :class=>"form-label" } %>
+
+          <%= f.text_field :state, { :class=>"form-control",  required: true, :tabindex => 3 } %>
+        </div>
+        <div class="form-group col-md-6">
+          <%= f.label :weatherevent, 'Weather Event', { :class=>"form-label" } %>
+
+          <%= f.text_field :weatherevent, { :class=>"form-control", required: true, :tabindex => 7 } %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <%= f.label :zip, 'Zip Code', { :class=>"form-label" } %>
+
+          <%= f.text_field :zip, { :class=>"form-control",  required: true, :tabindex => 3 } %>
+        </div>
+        <div class="form-group col-md-6">
+          <%= f.label :specialevent, 'Special Event', { :class=>"form-label" } %>
+
+          <%= f.text_field :specialevent, { :class=>"form-control", required: true, :tabindex => 7 } %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <%= f.label :dayofweek, 'Day of week', { :class=>"form-label" } %>
+        <%= f.select :dayofweek, Incident.dayofweeks.keys, {include_blank: true }, :tabindex => 5, class: 'custom-select' %>
+        </div>
+        <div class="form-group col-md-6">
+
+        </div>
+      </div>
+
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <%= f.label :comments, 'Comments', { :class=>"form-label" } %>
+
+          <%= f.text_area :speciacommentslevent, { :class=>"form-control", required: true, :tabindex => 7 } %>
+        </div>
+
+
+      </div>
+
+      <%= button_tag type: 'submit', class: "btn btn-success" do %>
+        <span class="ion ion-md-add"></span> &nbsp;&nbsp;<% if ( f.object.new_record? ) %>Create Incident<% else %>Update Incident<% end %>
+
+      <% end %>
+      <%= link_to 'Cancel', incidents_path, { :class=>"btn btn-secondary" } %>
+    <% end %>
+  </div>
+</div>

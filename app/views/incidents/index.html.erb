@@ -1,6 +1,96 @@
-<p id="notice"><%= notice %></p>
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'bootstrap-daterangepicker/bootstrap-daterangepicker.css', media: 'all' %>
+  <%= stylesheet_link_tag 'datatables/datatables.css', media: 'all' %>
+<% end %>
 
-<h1>Incidents</h1>
+<% content_for :scripts do %>
+  <!-- Dependencies -->
+  <%= javascript_include_tag 'moment/moment.js' %>
+  <%= javascript_include_tag 'bootstrap-daterangepicker/bootstrap-daterangepicker.js' %>
+  <%= javascript_include_tag 'datatables/datatables.js' %>
+  <%= javascript_include_tag 'tables_datatables.js' %>
+  <%= javascript_include_tag 'pages_tickets_list.js' %>
+<% end %>
+
+<h4 class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
+  <div>  <ol class="breadcrumb font-weight-bold m-0">
+      <li class="breadcrumb-item">Incidents</li>
+
+    </ol></div>
+
+  <%= link_to new_incident_path, method: :get do %>
+  <button type="button" class="btn btn-primary btn-round d-block"><span class="ion ion-md-add"></span>&nbsp; Create Incident</button>
+  <% end %>
+</h4>
+
+<%= form_with(model: @incident, local: true, :validate => true) do |f| %>
+<div class="ui-bordered px-4 pt-4 mb-4">
+  <div class="form-row">
+    <div class="col-md mb-4">
+      <label class="form-label">Type</label>
+      <%= f.select :dayofweek, Incident.dayofweeks.keys, {:include_blank=> 'Any days'}, class: 'custom-select' %>
+    </div>
+    <div class="col-md mb-4">
+      <label class="form-label">Incident Type</label>
+
+
+    </div>
+    <div class="col-md mb-4">
+      <label class="form-label">Created date</label>
+      <input type="text" id="tickets-list-created" class="form-control">
+    </div>
+    <div class="col-md col-xl-2 mb-4">
+      <label class="form-label d-none d-md-block">&nbsp;</label>
+      <button type="button" class="btn btn-secondary btn-block">Show</button>
+    </div>
+  </div>
+</div>
+<% end %>
+<div class="card">
+  <div class="card-datatable table-responsive">
+    <table class="datatables-demo table table-striped table-bordered" data-turbolinks='false'>
+      <thead>
+        <tr>
+          <th>Address</th>
+          <th>Project Name</th>
+          <th>Project Manager</th>
+          <th>Created On</th>
+          <th>Last update</th>
+          <th>Completion</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @incidents.each do |incident| %>
+        <tr>
+          <td><%= incident.address %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+
+
+
+          <%= link_to incident_path(incident), class: 'btn btn-outline-secondary btn-sm' do %>
+            <span class="ion ion-md-albums"></span> View
+          <% end %>
+          <% if current_user.try(:admin?) %>
+
+
+            <%= link_to edit_incident_path(incident) , { :class=>"btn btn-outline-secondary btn-sm" } do %>
+            <span class="ion ion-md-create"></span> Edit
+              <% end %>
+              <% end %>
+              </td>
+
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <table>
   <thead>
@@ -47,7 +137,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Incident', new_incident_path %>
-
-<%= tag.div nil, id: 'map', data: { incidents: @incidents.to_json(methods: [:address]) } %>

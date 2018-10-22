@@ -22,7 +22,12 @@
     <li class="sidenav-item<%= current_page?(root_path) ? ' active' : '' %>">
       <%= link_to root_path, class: "sidenav-link" do %><i class="sidenav-icon ion ion-ios-albums"></i><div>Home</div><% end %>
     </li>
-  
+    <li class="sidenav-item<%= current_page?('/incidents') || request.fullpath.start_with?('/incidents/') ? ' active' : '' %>">
+      <%= link_to incidents_path, class: "sidenav-link" do %><i class="sidenav-icon ion ion-ios-albums"></i><div>Incidents</div><% end %>
+    </li>
+    <li class="sidenav-item<%= current_page?('/maps') || request.fullpath.start_with?('/maps/') ? ' active' : '' %>">
+      <%= link_to maps_path, class: "sidenav-link" do %><i class="sidenav-icon ion ion-ios-albums"></i><div>Map</div><% end %>
+    </li>
   </ul>
 </div>
 <!-- / Layout sidenav -->

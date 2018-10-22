@@ -6,6 +6,13 @@ Rails.application.config.assets.version = '1.0'
 # Add vendor paths
 Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets')
 
+Rails.application.config.assets.precompile += Dir[Rails.root.join('app', 'assets', 'javascripts', '*.js')].map {
+  |file| file.sub(%r(#{Rails.root.join('app', 'assets', 'javascripts/')}), '')
+}
+Rails.application.config.assets.precompile += Dir[Rails.root.join('app', 'assets', 'stylesheets', '*.css')].map {
+  |file| file.sub(%r(#{Rails.root.join('app', 'assets', 'stylesheets/')}), '')
+}
+
 # Precompile core stylesheets
 Rails.application.config.assets.precompile += [
   "stylesheets/bootstrap.css",
