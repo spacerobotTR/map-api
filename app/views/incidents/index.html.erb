@@ -23,7 +23,9 @@
   <% end %>
 </h4>
 
-<%= form_with(model: @incident, local: true, :validate => true) do |f| %>
+
+
+<%= form_for(:search, url: incidents_path, method: :get) do |f| %>
 <div class="ui-bordered px-4 pt-4 mb-4">
   <div class="form-row">
     <div class="col-md mb-4">
@@ -37,38 +39,44 @@
     </div>
     <div class="col-md mb-4">
       <label class="form-label">Created date</label>
-      <input type="text" id="tickets-list-created" class="form-control">
+      <%= f.text_field :created_at, class: 'form-control', id: 'tickets-list-created', :autocomplete => :off, value: created_at_from_parameters %>
+
     </div>
     <div class="col-md col-xl-2 mb-4">
       <label class="form-label d-none d-md-block">&nbsp;</label>
-      <button type="button" class="btn btn-secondary btn-block">Show</button>
+      <button type="submit" class="btn btn-secondary btn-block">Show</button>
     </div>
   </div>
 </div>
-<% end %>
+  <% end %>
+
+
+<%= form_with(model: @incident, local: true, :validate => true) do |f| %>
 <div class="card">
   <div class="card-datatable table-responsive">
     <table class="datatables-demo table table-striped table-bordered" data-turbolinks='false'>
       <thead>
         <tr>
           <th>Address</th>
-          <th>Project Name</th>
-          <th>Project Manager</th>
-          <th>Created On</th>
-          <th>Last update</th>
-          <th>Completion</th>
-          <th>Actions</th>
+          <th>Incident Type</th>
+          <th>Day of Week</th>
+          <th>Time of day</th>
+          <th>DR #</th>
+          <th>Weather Event</th>
+          <th>Special Event</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         <% @incidents.each do |incident| %>
         <tr>
           <td><%= incident.address %></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td><%= incident.incidenttype %></td>
+          <td><%= incident.dayofweek %></td>
+          <td><%= incident.timeofday %></td>
+          <td><%= incident.drnum %></td>
+          <td><%= incident.weatherevent %></td>
+          <td><%= incident.specialevent %></td>
           <td>
 
 
@@ -82,58 +90,14 @@
             <%= link_to edit_incident_path(incident) , { :class=>"btn btn-outline-secondary btn-sm" } do %>
             <span class="ion ion-md-create"></span> Edit
               <% end %>
-              <% end %>
+            <% end %>
               </td>
 
         </tr>
         <% end %>
+
       </tbody>
     </table>
   </div>
 </div>
-
-<table>
-  <thead>
-    <tr>
-      <th>Street</th>
-      <th>City</th>
-      <th>Zip</th>
-      <th>Dayofweek</th>
-      <th>Timeofday</th>
-      <th>State</th>
-      <th>Incidenttype</th>
-      <th>Drnum</th>
-      <th>Weatherevent</th>
-      <th>Specialevent</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
-      <th>Comments</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @incidents.each do |incident| %>
-      <tr>
-        <td><%= incident.street %></td>
-        <td><%= incident.city %></td>
-        <td><%= incident.zip %></td>
-        <td><%= incident.dayofweek %></td>
-        <td><%= incident.timeofday %></td>
-        <td><%= incident.state %></td>
-        <td><%= incident.incidenttype %></td>
-        <td><%= incident.drnum %></td>
-        <td><%= incident.weatherevent %></td>
-        <td><%= incident.specialevent %></td>
-        <td><%= incident.latitude %></td>
-        <td><%= incident.longitude %></td>
-        <td><%= incident.comments %></td>
-        <td><%= link_to 'Show', incident %></td>
-        <td><%= link_to 'Edit', edit_incident_path(incident) %></td>
-        <td><%= link_to 'Destroy', incident, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+<% end %>

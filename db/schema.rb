@@ -12,6 +12,16 @@
 
 ActiveRecord::Schema.define(version: 20181019185827) do
 
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.bigint "servicerequest_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["servicerequest_id"], name: "index_comments_on_servicerequest_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "incidents", force: :cascade do |t|
     t.string "street"
     t.string "city"
@@ -30,20 +40,29 @@ ActiveRecord::Schema.define(version: 20181019185827) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "locations", force: :cascade do |t|
-    t.string "street"
-    t.string "city"
-    t.string "zip"
-    t.integer "dayofweek"
-    t.date "timeofday"
-    t.string "state"
-    t.string "incidenttype"
-    t.string "drnum"
-    t.string "weatherevent"
-    t.string "specialevent"
-    t.float "latitude"
-    t.float "longitude"
-    t.text "comments"
+  create_table "servicerequests", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "requester_id"
+    t.integer "assignee_id"
+    t.string "requester_name"
+    t.string "requester_phone"
+    t.string "unitnumber"
+    t.integer "srtype"
+    t.integer "priority"
+    t.text "srdescription"
+    t.integer "status", default: 0
+    t.string "building"
+    t.string "location"
+    t.string "controller"
+    t.string "model"
+    t.string "serialnumber"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "uploads", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -51,15 +70,20 @@ ActiveRecord::Schema.define(version: 20181019185827) do
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.boolean "admin", default: false
-    t.string "username", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.string "username"
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "comments", "servicerequests"
+  add_foreign_key "comments", "users"
 end

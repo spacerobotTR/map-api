@@ -3,6 +3,8 @@ class Incident < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :address_changed?
 
+  scope :having_created_at_between, ->(start_date, end_date) { where(created_at: start_date..end_date) }
+
   def address
     [street, city, zip, state].compact.join(", ")
   end

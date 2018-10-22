@@ -4,7 +4,12 @@ class IncidentsController < ApplicationController
   # GET /incidents
   # GET /incidents.json
   def index
+    if params[:search] && params[:search][:created_at].present?
+      start_date, end_date = params[:search][:created_at].split(' - ')
+    @incidents = Incident.having_created_at_between(start_date, end_date)
+    else
     @incidents = Incident.all
+    end
   end
 
   def map

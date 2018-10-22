@@ -11,6 +11,8 @@ document.addEventListener("turbolinks:load", function() {
   var incidents = JSON.parse(document.querySelector("#map").dataset.incidents);
   window.incidents = incidents;
 
+  var bounds = new google.maps.LatLngBounds();
+
   incidents.forEach(function(incident) {
     if (incident.latitude && incident.longitude) {
       var marker = map.addMarker({
@@ -22,7 +24,8 @@ document.addEventListener("turbolinks:load", function() {
                     <p><a href='/incidents/${incident.id}'>${incident.drnum}</a></p>`
         }
       });
+      bounds.extend(marker.position);
     }
   });
-
+  map.fitBounds(bounds);
 });
